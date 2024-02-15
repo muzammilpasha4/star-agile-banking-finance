@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                    sh 'docker run -itd --name banking -p 80:8082 muzammilp/bankingimgaddbook:latest'
+                    sh 'docker run -itd --name banking -p 80:8081 muzammilp/bankingimgaddbook:latest'
                 }
             }
     }
