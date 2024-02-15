@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/muzammilpasha4/star-agile-health-care/', branch: "master"
+                git url: 'https://github.com/muzammilpasha4/star-agile-banking-finance/', branch: "master"
             }
         }
         stage('Build') {
@@ -14,8 +14,8 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh 'docker build -t medicureimg .'
-                sh 'docker tag medicureimg:latest muzammilp/medicureimgaddbook:latest'
+                sh 'docker build -t bankingimg .'
+                sh 'docker tag bankingimg:latest muzammilp/bankingimgaddbook:latest'
             }
         }
 
@@ -23,13 +23,13 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker_pass', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                     sh "echo \$PASS | docker login -u \$USER --password-stdin"
-                    sh 'docker push muzammilp/medicureimgaddbook:latest'
+                    sh 'docker push muzammilp/bankingimgaddbook:latest'
                 }
             }
         }
         stage('Deploy') {
             steps {
-                    sh 'docker run -itd --name medicure -p 80:8082 muzammilp/medicureimgaddbook:latest'
+                    sh 'docker run -itd --name banking -p 80:8082 muzammilp/bankingimgaddbook:latest'
                 }
             }
     }
